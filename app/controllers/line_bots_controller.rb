@@ -51,12 +51,12 @@ class LineBotsController < ApplicationController
           client.reply_message(event['replyToken'], message)
         end
         when Line::Bot::Event::MessageType::Sticker
-          message = {
+          message2 = {
             type: 'sticker',
             packageId: '11537',
             stickerId: '2002771'
           }
-          client.reply_message(event['replyToken'], message)
+          client.reply_message(event['replyToken'], message2)
         end
       end
     }
