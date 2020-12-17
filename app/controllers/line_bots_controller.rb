@@ -51,12 +51,12 @@ class LineBotsController < ApplicationController
                 type: 'text',
                 text: response
               }
-            # when Line::Bot::Event::MessageType::Sticker
-            #   message = {
-            #     type: 'sticker',
-            #     packageId: '1',
-            #     stickerId: '4'
-            #   }
+            when Line::Bot::Event::MessageType::Sticker
+              message = {
+                type: 'sticker',
+                packageId: '1',
+                stickerId: '4'
+              }
           end
           client.reply_message(event['replyToken'], message)
       end
