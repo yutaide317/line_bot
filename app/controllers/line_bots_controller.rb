@@ -37,9 +37,6 @@ class LineBotsController < ApplicationController
         response = "BOSSは井出" * 50
       elsif event.message['text'].include?("今日の運勢は")
         response = ["大吉", "中吉", "小吉", "凶", "大凶"].shuffle.first
-      elsif　event.message['sticker']
-        response1 = "11537",
-        response2 = "52002734"
       else
         response = @post.name
       end
@@ -56,8 +53,8 @@ class LineBotsController < ApplicationController
             when Line::Bot::Event::MessageType::Sticker
               message = {
                 type: 'sticker',
-                packageId: response1,
-                stickerId: response2
+                packageId: '11537',
+                stickerId: '52002734'
               }
           end
           client.reply_message(event['replyToken'], message)
