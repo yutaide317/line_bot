@@ -42,7 +42,7 @@ class LineBotsController < ApplicationController
           type: 'sticker',
           packageId: '11537',
           stickerId: '52002734'
-        }
+        });
       else
         response = @post.name
       end
