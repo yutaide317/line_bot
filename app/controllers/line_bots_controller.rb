@@ -2,7 +2,7 @@ class LineBotsController < ApplicationController
   require 'line/bot'  # gem 'line-bot-api'
 
   # callbackアクションのCSRFトークン認証を無効
-  # protect_from_forgery :except => [:callback]
+  protect_from_forgery :except => [:callback]
 
   def client
     @client ||= Line::Bot::Client.new { |config|
@@ -14,35 +14,34 @@ class LineBotsController < ApplicationController
   def callback
 
     # Postモデルの中身をランダムで@postに格納する
-    # @post=Post.offset( rand(Post.count) ).first
+    @post=Post.offset( rand(Post.count) ).first
     body = request.body.read
 
     signature = request.env['HTTP_X_LINE_SIGNATURE']
-    # unless client.validate_signature(body, signature)
-    #   head :bad_request
-    # end
-    event = params["events"][0]
-    event_type = event["type"]
-    input_text = event["message"]["text"]
+    unless client.validate_signature(body, signature)
+      head :bad_request
+    end
+    
     events = client.parse_events_from(body)
 
     events.each { |event|
 
-      # # event.message['text']でLINEで送られてきた文書を取得
-      # if event.message['text'].include?("お疲れ様です")
-      #   response = "はい、お疲れ様です、田中です"
-      # elsif event.message["text"].include?("ワッフルの焼き方")
-      #   response = "カブちゃんに聞いてね♪"
-      # elsif event.message['text'].include?("池田")
-      #   response = "せいちゃん"
-      # elsif event.message['text'].include?("銀座店")
-      #   response = "BOSSは井出" * 50
-      # elsif event.message['text'].include?("今日の運勢は")
-      #   response = ["大吉", "中吉", "小吉", "凶", "大凶"].shuffle.first
-      # else
-      #   response = @post.name
-      # end
-      # #if文でresponseに送るメッセージを格納
+      # event.message['text']でLINEで送られてきた文書を取得
+      if event.message['text'].include?("お疲れ様です")
+        response = "はい、お疲れ様です、田中です"
+      elsif event.message["text"].include?("ワッフルの焼き方")
+        response = "カブちゃんに聞いてね♪"
+      elsif event.message['text'].include?("池田")
+        response = "せいちゃん"
+      elsif event.message['text'].include?("銀座店")
+        response = "BOSSは井出" * 50
+      elsif event.message['text'].include?("今日の運勢は")
+        response = ["大吉", "中吉", "小吉", "凶", "大凶"].shuffle.first
+      elsif
+        response = @post.name
+      else
+      end
+      #if文でresponseに送るメッセージを格納
 
       case event
         when Line::Bot::Event::Message
@@ -50,19 +49,19 @@ class LineBotsController < ApplicationController
             when Line::Bot::Event::MessageType::Text
               message = {
                 type: 'text',
-                text: input_text
+                text: response
               }
-            when Line::Bot::Event::MessageType::Sticker
-              message = {
-                type: 'sticker',
-                packageId: '1',
-                stickerId: '4'
-              }
+            # when Line::Bot::Event::MessageType::Sticker
+            #   message = {
+            #     type: 'sticker',
+            #     packageId: '1',
+            #     stickerId: '4'
+            #   }
           end
           client.reply_message(event['replyToken'], message)
       end
     }
 
-    # head :ok
+    head :ok
   end
 end
