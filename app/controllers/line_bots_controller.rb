@@ -26,21 +26,22 @@ class LineBotsController < ApplicationController
 
     events.each { |event|
 
-      # # event.message['text']でLINEで送られてきた文書を取得
-      # if event.message['text'].include?("お疲れ様です")
-      #   response = "はい、お疲れ様です、田中です"
-      # elsif event.message["text"].include?("ワッフルの焼き方")
-      #   response = "カブちゃんに聞いてね♪"
-      # elsif event.message['text'].include?("池田")
-      #   response = "せいちゃん"
-      # elsif event.message['text'].include?("銀座店")
-      #   response = "BOSSは井出" * 50
-      # elsif event.message['text'].include?("今日の運勢は")
-      #   response = ["大吉", "中吉", "小吉", "凶", "大凶"].shuffle.first
-      # else
-      #   response = @post.name
-      # end
-      # #if文でresponseに送るメッセージを格納
+      # event.message['text']でLINEで送られてきた文書を取得
+      if event.message['text'].include?("お疲れ様です")
+        response = "はい、お疲れ様です、田中です"
+      elsif event.message["text"].include?("ワッフルの焼き方")
+        response = "カブちゃんに聞いてね♪"
+      elsif event.message['text'].include?("池田")
+        response = "せいちゃん"
+      elsif event.message['text'].include?("銀座店")
+        response = "BOSSは井出" * 50
+      elsif event.message['text'].include?("今日の運勢は")
+        response = ["大吉", "中吉", "小吉", "凶", "大凶"].shuffle.first
+      elsif event.message['sticker']
+      else
+        response = @post.name
+      end
+      #if文でresponseに送るメッセージを格納
 
       case event
         when Line::Bot::Event::Message
@@ -48,7 +49,7 @@ class LineBotsController < ApplicationController
             when Line::Bot::Event::MessageType::Text
               message = {
                 type: 'text',
-                text: event.message['text']
+                text: response
               }
             when Line::Bot::Event::MessageType::Sticker
               message = {
