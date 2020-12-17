@@ -43,21 +43,21 @@ class LineBotsController < ApplicationController
       # #if文でresponseに送るメッセージを格納
 
       case event
-      when Line::Bot::Event::Message
-        case event.type
-        when Line::Bot::Event::MessageType::Text
-          message = {
-            type: 'text',
-            text: input_text
-          }
-        when Line::Bot::Event::Sticker
-          message = {
-            type: 'sticker',
-            packageId: '1'
-            stickerId: '1'
-          }
+        when Line::Bot::Event::Message
+          case event.type
+            when Line::Bot::Event::MessageType::Text
+              message = {
+                type: 'text',
+                text: input_text
+              }
+            when Line::Bot::Event::MessageType::Sticker
+              message = {
+                type: 'sticker',
+                packageId: '1',
+                stickerId: '1'
+              }
+          end
           client.reply_message(event['replyToken'], message)
-        end
       end
     }
 
