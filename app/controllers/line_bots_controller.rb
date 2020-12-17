@@ -21,7 +21,7 @@ class LineBotsController < ApplicationController
     unless client.validate_signature(body, signature)
       head :bad_request
     end
-
+    input_text = event["message"]["text"]
     events = client.parse_events_from(body)
 
     events.each { |event|
@@ -48,7 +48,7 @@ class LineBotsController < ApplicationController
         when Line::Bot::Event::MessageType::Text
           message = {
             type: 'text',
-            text: response
+            text: input_text
           }
         when Line::Bot::Event::Sticker
           message = {
