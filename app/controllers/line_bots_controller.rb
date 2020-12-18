@@ -44,6 +44,7 @@ class LineBotsController < ApplicationController
                 message = {
                   type: 'text',
                   text: @post.name
+                }
               end
             when Line::Bot::Event::MessageType::Sticker
               message = [{
