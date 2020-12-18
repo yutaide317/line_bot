@@ -48,20 +48,46 @@ class LineBotsController < ApplicationController
               elsif event.message['text'].include?("じゃんけん")
                 message = {
                   type: 'text',
-                  text: "グー、チョキ、パーのどれかを出してね。最初はグー、じゃんけんぽん！"
+                  text: "ぐー、ちょき、ぱーのどれかを出してね。じゃんけんぽん！"
                 }
-              elsif event.message['text'].include?("グー")
+              elsif event.message['text'].include?("ぐー")
                 message = [{
                   type: 'text',
-                  text: "グー!あいこ！"
+                  text: "ぐー!あいこ！"
                 },
                 {
                   type: 'text',
-                  text: "チョキ!私の負け。。"
+                  text: "ちょき!私の負け。。"
                 },
                 {
                   type: 'text',
-                  text: "パー！私の勝ち！"
+                  text: "ぱー！私の勝ち！"
+                }].shuffle.first
+              elsif event.message['text'].include?("ちょき")
+                message = [{
+                  type: 'text',
+                  text: "ぐー!私の勝ち！！"
+                },
+                {
+                  type: 'text',
+                  text: "ちょき!あいこ！"
+                },
+                {
+                  type: 'text',
+                  text: "ぱー！私の負け。。"
+                }].shuffle.first
+              elsif event.message['text'].include?("ぱー")
+                message = [{
+                  type: 'text',
+                  text: "ぐー!私の負け。。"
+                },
+                {
+                  type: 'text',
+                  text: "ちょき!私の勝ち！"
+                },
+                {
+                  type: 'text',
+                  text: "ぱー！あいこ！"
                 }].shuffle.first
               else 
                 message = {
