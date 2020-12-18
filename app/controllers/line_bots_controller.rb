@@ -26,22 +26,6 @@ class LineBotsController < ApplicationController
 
     events.each { |event|
 
-      # event.message['text']でLINEで送られてきた文書を取得
-      if event.message['text'].include?("お疲れ様です")
-        response = "はい、お疲れ様です、田中です"
-      elsif event.message["text"].include?("ワッフルの焼き方")
-        response = "カブちゃんに聞いてね♪"
-      elsif event.message['text'].include?("池田")
-        response = "せいちゃん"
-      elsif event.message['text'].include?("銀座店")
-        response = "BOSSは井出" * 50
-      elsif event.message['text'].include?("今日の運勢は")
-        response = ["大吉", "中吉", "小吉", "凶", "大凶"].shuffle.first
-      else
-        response = @post.name
-      end
-      #if文でresponseに送るメッセージを格納
-
       case event
         when Line::Bot::Event::Message
           case event.type
@@ -59,6 +43,22 @@ class LineBotsController < ApplicationController
           end
           client.reply_message(event['replyToken'], message)
       end
+
+      # event.message['text']でLINEで送られてきた文書を取得
+      if event.message['text'].include?("お疲れ様です")
+        response = "はい、お疲れ様です、田中です"
+      elsif event.message["text"].include?("ワッフルの焼き方")
+        response = "カブちゃんに聞いてね♪"
+      elsif event.message['text'].include?("池田")
+        response = "せいちゃん"
+      elsif event.message['text'].include?("銀座店")
+        response = "BOSSは井出" * 50
+      elsif event.message['text'].include?("今日の運勢は")
+        response = ["大吉", "中吉", "小吉", "凶", "大凶"].shuffle.first
+      else
+        response = @post.name
+      end
+      #if文でresponseに送るメッセージを格納
     }
 
     head :ok
