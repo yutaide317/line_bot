@@ -38,7 +38,12 @@ class LineBotsController < ApplicationController
               elsif event.message['text'].include?("おはよう")
                 message = {
                   type: 'text',
-                  text: "おはようさん！"
+                  text: "おはようさん $！",
+                  emojis: {
+                    index: 7,
+                    productId: "5ac21184040ab15980c9b43a",
+                    emojiId: "015"
+                  }
                 }
               else 
                 message = {
@@ -56,6 +61,21 @@ class LineBotsController < ApplicationController
                 type: 'sticker',
                 packageId: '11537',
                 stickerId: '52002736'
+              },
+              {
+                type: 'sticker',
+                packageId: '11537',
+                stickerId: '52002760'
+              },
+              {
+                type: 'sticker',
+                packageId: '11537',
+                stickerId: '52002740'
+              },
+              {
+                type: 'sticker',
+                packageId: '11537',
+                stickerId: '52002771'
               }].shuffle.first
           end
           client.reply_message(event['replyToken'], message)
