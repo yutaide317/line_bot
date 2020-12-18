@@ -38,9 +38,9 @@ class LineBotsController < ApplicationController
               elsif event.message['text'].include?("おはよう")
                 message = {
                   type: 'text',
-                  text: "おはようさん $！",
+                  text: "$おはようさん",
                   emojis: {
-                    index: 7,
+                    index: 0,
                     productId: "5ac21184040ab15980c9b43a",
                     emojiId: "015"
                   }
