@@ -32,8 +32,10 @@ class LineBotsController < ApplicationController
             when Line::Bot::Event::MessageType::Text
               message = {
                 type: 'text',
-                text: @post.name
+                text: response
               }
+              when event.message['text'].include?("運勢")
+                response = "大吉"
             when Line::Bot::Event::MessageType::Sticker
               message = [{
                 type: 'sticker',
