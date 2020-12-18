@@ -30,16 +30,20 @@ class LineBotsController < ApplicationController
         when Line::Bot::Event::Message
           case event.type
             when Line::Bot::Event::MessageType::Text
-              if event.message['text'].include?("運勢")
+              if event.message['text'].include?("今日の運勢は")
                 message = {
                   type: 'text',
-                  text: "大吉"
+                  text: ["大吉", "中吉", "小吉", "凶", "大凶"].shuffle.first
                 }
-              else
+              elsif event.message['text'].include?("おはよう")
                 message = {
                   type: 'text',
-                  text: "将吉"
+                  text: "おはようさん！"
                 }
+              else 
+                message = {
+                  type: 'text',
+                  text: @post.name
               end
             when Line::Bot::Event::MessageType::Sticker
               message = [{
