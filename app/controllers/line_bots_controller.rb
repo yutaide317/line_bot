@@ -37,11 +37,6 @@ class LineBotsController < ApplicationController
         response = "BOSSは井出" * 50
       elsif event.message['text'].include?("今日の運勢は")
         response = ["大吉", "中吉", "小吉", "凶", "大凶"].shuffle.first
-      elsif event.message['sticker']
-        message['sticker'] = {
-          packageId: '11537',
-          stickerId: '52002734'
-        }
       else
         response = @post.name
       end
