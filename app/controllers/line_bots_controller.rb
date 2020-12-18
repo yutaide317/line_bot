@@ -31,12 +31,12 @@ class LineBotsController < ApplicationController
           case event.type
             when Line::Bot::Event::MessageType::Text
               if event.message['text'].include?("運勢")
-                {
+                message = {
                   type: 'text',
                   text: "大吉"
                 }
             　else
-                {
+                message = {
                   type: 'text',
                   text: "将吉"
                 }
