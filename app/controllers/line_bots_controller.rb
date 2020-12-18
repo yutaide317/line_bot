@@ -45,6 +45,24 @@ class LineBotsController < ApplicationController
                   #   emojiId: "015"
                   # }
                 }
+              elsif event.message['text'].include?("じゃんけん")
+                message = {
+                  type: 'text',
+                  text: "グー、チョキ、パーのどれかを出してね。最初はグー、じゃんけんぽん！"
+                }
+              elsif event.message['text'].include?("グー")
+                message = [{
+                  type: 'text',
+                  text: "グー!あいこ！"
+                },
+                {
+                  type: 'text',
+                  text: "チョキ!私の負け。。"
+                },
+                {
+                  type: 'text',
+                  text: "パー！私の勝ち！"
+                }].shuffle.first
               else 
                 message = {
                   type: 'text',
