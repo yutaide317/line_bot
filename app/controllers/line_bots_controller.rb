@@ -62,6 +62,10 @@ class LineBotsController < ApplicationController
                 {
                   type: 'text',
                   text: "ぱー！私の勝ち！"
+                },
+                {
+                  type: 'text',
+                  text: "ちょき！強すぎない。。"
                 }].shuffle.first
               elsif event.message['text'].include?("ちょき")
                 message = [{
