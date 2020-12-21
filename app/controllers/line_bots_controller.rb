@@ -30,15 +30,20 @@ class LineBotsController < ApplicationController
         when Line::Bot::Event::Message
           case event.type
             when Line::Bot::Event::MessageType::Text
-              if event.message['text'].include?("今日の運勢は")
+              if event.message['text'].include?("運勢")
                 message = {
                   type: 'text',
                   text: ["大吉", "中吉", "小吉", "凶", "大凶"].shuffle.first
                 }
+              elsif event.message['text'].include?("天気")
+                message = {
+                  type: 'text',
+                  text: ["今日は快晴です", "今日は大雨です", "今日は曇りです", "今日は雪が降るかもしれません", "曇り時々雨"].shuffle.first
+                }
               elsif event.message['text'].include?("おはよう")
                 message = {
                   type: 'text',
-                  text: "おはようさん"
+                  text: ["おはようございます🌞", "昨日はよく眠れたかな？", "おはよう！！", "ZZZ...", "おはよう、気持ちの良い朝ですね！！"].shuffle.first
                   # emojis: {
                   #   index: 0,
                   #   productId: "5ac21184040ab15980c9b43a",
