@@ -50,6 +50,16 @@ class LineBotsController < ApplicationController
                   #   emojiId: "015"
                   # }
                 }
+              elsif event.message['text'].include?("おやすみ")
+                message = {
+                  type: 'text',
+                  text: ["おやすみなさい😴", "８時間は寝ましょう！！", "おはよう！！", "ZZZZZZZZZZ...", "眠れない。。"].shuffle.first
+                  # emojis: {
+                  #   index: 0,
+                  #   productId: "5ac21184040ab15980c9b43a",
+                  #   emojiId: "015"
+                  # }
+                }
               elsif event.message['text'].include?("じゃんけん")
                 message = {
                   type: 'text',
